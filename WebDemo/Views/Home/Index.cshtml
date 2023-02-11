@@ -1,0 +1,105 @@
+﻿@{
+    ViewData["Title"] = "Home";
+}
+
+<div class="container">
+    <div class="row p-4" style="row-gap:5px">
+        <div class="col-xl-4">
+            <div class="card">
+                <div class="card-header">
+                    <span><b>Device1</b></span>
+                </div>
+                <div class="card-body">
+                    <div class="row" style="row-gap:10px">
+                        <div class="col-xl-12">
+                            <button class="form-control"
+                                style="color:white; background-color:lightgray; font-size:30px;height:160px"
+                                id="device1">OFF</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-xl-4">
+            <div class="card">
+                <div class="card-header">
+                    <span><b>Device2</b></span>
+                </div>
+                <div class="card-body">
+                    <div class="row" style="row-gap:10px">
+                        <div class="col-xl-12">
+                            <button class="form-control"
+                                style="color:white; background-color:lightgray; font-size:30px;height:160px"
+                                id="device2">OFF</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-xl-4">
+            <div class="card">
+                <div class="card-header">
+                    <span><b>Device3</b></span>
+                </div>
+                <div class="card-body">
+                    <div class="row" style="row-gap:10px">
+                        <div class="col-xl-12">
+                            <button class="form-control"
+                                style="color:white; background-color:lightgray; font-size:30px;height:160px"
+                                id="device3">OFF</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@section Scripts
+    {
+    <script type="text/javascript">
+        $(document).ready(function () {
+            setInterval(function () {
+                GetData();
+            }, 500);
+        });
+        let datas = [];
+        function GetData() {
+            $.ajax({
+                type: "GET",
+                url: '@Url.Action("GetData", "Home")',
+                contentType: 'application/x-www-form-urlencoded',
+                data: {
+
+                },
+                success: function (response) {
+                    let devices = response;
+                    let status_device1 = devices.find(f => f.device === "Sensor1").status;
+                    let status_device2 = devices.find(f => f.device === "Sensor2").status;
+                    let status_device3 = devices.find(f => f.device === "Sensor3").status;
+
+                    if (status_device1 === true) {
+                        $('#device1').css("background-color", "green");
+                        document.getElementById('device1').innerHTML = 'ON';
+                    } else {
+                        $('#device1').css("background-color", "red");
+                        document.getElementById('device1').innerHTML = 'OFF';
+                    }
+                    if (status_device2 === true) {
+                        $('#device2').css("background-color", "green");
+                        document.getElementById('device2').innerHTML = 'ON';
+                    } else {
+                        $('#device2').css("background-color", "red");
+                        document.getElementById('device2').innerHTML = 'OFF';
+                    }
+                    if (status_device3 === true) {
+                        $('#device3').css("background-color", "green");
+                        document.getElementById('device3').innerHTML = 'ON';
+                    } else {
+                        $('#device3').css("background-color", "red");
+                        document.getElementById('device3').innerHTML = 'OFF';
+                    }
+                },
+            });
+        };
+    </script>
+}

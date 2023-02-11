@@ -1,0 +1,29 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"]  Labor Appearance Active Time</title>
+    <partial name="_Style" />
+    <style>
+        .late {
+            background-color: red;
+        }
+    </style>
+</head>
+<body class="layout-fixed layout-top-nav layout-footer-fixed">
+    <div class="wrapper">  
+        <partial name="_Header" />
+        <div class="content-wrapper">
+            <div class="container-fluid">
+                <main role="main" class="pb-3">
+                    @RenderBody()
+                </main>
+            </div>
+        </div>
+        <partial name="_Footer" />
+    </div>
+    <partial name="_Scripts" />
+    @RenderSection("Scripts", required: false)
+</body>
+</html>
